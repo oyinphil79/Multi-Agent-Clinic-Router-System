@@ -12,7 +12,7 @@ import { CLINIC } from "@/lib/clinic";
 import { DEFAULT_MODEL, type ModelId } from "@/lib/models";
 import { LANES, type Lane, type ThreadItem } from "@/lib/types";
 
-const KEY_STORAGE = "gemini-key";
+const KEY_STORAGE = "openai-key";
 
 class ChatError extends Error {
   constructor(message: string, public status: number) {
@@ -23,7 +23,7 @@ class ChatError extends Error {
 async function callChat<T>(key: string, body: object): Promise<T> {
   const res = await fetch("/api/chat", {
     method: "POST",
-    headers: { "content-type": "application/json", "x-gemini-key": key },
+    headers: { "content-type": "application/json", "x-openai-key": key },
     body: JSON.stringify(body),
   });
   const data = await res.json().catch(() => ({}));
@@ -70,7 +70,7 @@ export default function Page() {
   async function send() {
     const apiKey = key.trim();
     if (!apiKey) {
-      setKeyError("Paste your Gemini API key above to start. It is needed for every message.");
+      setKeyError("Paste your OpenAI API key above to start. It is needed for every message.");
       return;
     }
     const lines = text.split("\n").map((l) => l.trim()).filter(Boolean).slice(0, MAX_MESSAGES);

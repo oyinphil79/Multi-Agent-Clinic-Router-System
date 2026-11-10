@@ -9,13 +9,13 @@ export function KeyBar({ value, onChange, error }: Props) {
   const [show, setShow] = useState(false);
   return (
     <div className="card p-4 sm:p-5">
-      <label htmlFor="gemini-key" className="mb-2 flex items-center gap-2 text-sm font-medium">
+      <label htmlFor="openai-key" className="mb-2 flex items-center gap-2 text-sm font-medium">
         <KeyRound className="size-4 text-zinc-400" strokeWidth={1.75} />
-        Gemini API key
+        OpenAI API key
       </label>
       <div className="flex items-center gap-2 rounded-full bg-zinc-50 px-4 ring-1 ring-black/5 focus-within:ring-zinc-300">
         <input
-          id="gemini-key"
+          id="openai-key"
           type={show ? "text" : "password"}
           value={value}
           onChange={(e) => onChange(e.target.value)}

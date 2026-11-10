@@ -31,7 +31,7 @@ export function Lanes({ counts, latest }: Props) {
         })}
       </div>
       <p className="mt-3 text-xs leading-5 text-zinc-400">
-        Gemini picks a lane, then a word list double-checks for urgent phrases. Emergencies skip the bot.
+        The model picks a lane, then a word list double-checks for urgent phrases. Emergencies skip the bot.
       </p>
     </section>
   );

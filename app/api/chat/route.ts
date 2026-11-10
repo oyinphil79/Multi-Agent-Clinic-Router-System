@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
-import { describeError, replyTo, routeMessage } from "@/lib/gemini";
+import { describeError, replyTo, routeMessage } from "@/lib/openai";
 import { isModelId } from "@/lib/models";
 import { LANES, type Lane } from "@/lib/types";
 
 export const runtime = "nodejs";
 
 // One route, two steps: "route" sorts the message, "reply" answers it.
-// The key arrives in a header, is used for this request only, and is never stored or logged.
+// The OpenAI key arrives in a header, is used for this request only, and is never stored or logged.
 export async function POST(req: Request) {
-  const key = req.headers.get("x-gemini-key")?.trim();
-  if (!key) return NextResponse.json({ error: "Add your Gemini API key first." }, { status: 401 });
+  const key = req.headers.get("x-openai-key")?.trim();
+  if (!key) return NextResponse.json({ error: "Add your OpenAI API key first." }, { status: 401 });
 
   const body = await req.json().catch(() => null);
   const message = typeof body?.message === "string" ? body.message.trim().slice(0, 1000) : "";

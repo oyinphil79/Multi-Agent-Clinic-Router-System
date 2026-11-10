@@ -11,20 +11,20 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000, paste your Gemini API key, and click **Send to router**. The first batch is pre-filled.
+Open http://localhost:3000, paste your OpenAI API key, and click **Send to router**. The first batch is pre-filled.
 
 ## How it works
 
-- `POST /api/chat` with `step: "route"` asks Gemini for structured JSON: one lane plus a one-sentence reason.
+- `POST /api/chat` with `step: "route"` asks OpenAI (Responses API, strict JSON schema) for structured output: one lane plus a one-sentence reason.
   A plain word list (`lib/safety.ts`, English, Hindi and Hinglish) runs after the model and can only escalate to emergency.
   An unknown lane is also treated as emergency.
-- `step: "reply"` calls Gemini with the lane's own system prompt and facts (`lib/clinic.ts`). Emergency returns a fixed message, no AI call.
-- Every call uses low thinking. Models: Gemini 3.8 Flash (default) and Gemini 3.5 Flash-Lite (cheaper), switchable top right.
-- The API key lives in `sessionStorage`, travels as the `x-gemini-key` header, and is never stored or logged on the server.
+- `step: "reply"` calls OpenAI with the lane's own system prompt and facts (`lib/clinic.ts`). Emergency returns a fixed message, no AI call.
+- Every call uses low reasoning effort and `store: false`. Models: GPT-5.4 mini (default) and GPT-5.4 nano (cheaper), switchable top right.
+- The API key lives in `sessionStorage`, travels as the `x-openai-key` header, and is never stored or logged on the server.
 
 ## Files
 
 - `app/page.tsx` – screen and the message loop
 - `app/api/chat/route.ts` – the single backend route
 - `components/` – header, key bar, setup card, thread, lanes, inbox
-- `lib/` – Gemini calls, clinic facts and prompts, safety net, models, batches
+- `lib/` – OpenAI calls, clinic facts and prompts, safety net, models, batches
